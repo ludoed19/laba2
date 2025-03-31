@@ -20,4 +20,4 @@ if nums:
     print("Используемые цифры:", num_to_words(set.union(*[n[1] for n in nums])))
 else:
     print("Нет подходящих чисел.")
-input("Нажмите Enter для выхода...")
+input()
