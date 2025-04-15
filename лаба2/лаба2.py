@@ -10,10 +10,10 @@ except FileNotFoundError:
     print("Ошибка: Файл 'input.txt' не найден.")
     input("Нажмите Enter для выхода...")
     exit()
-matches = re.findall(r"\b[0-7]+\b", data)  # Ищем только восьмеричные числа
-print("Найденные восьмеричные числа:", matches)  # Отладочный вывод
-nums = [(int(m, 8), set(m)) for m in matches if len(set(m)) >= K]  # Преобразуем числа
-nums = [(n, d) for n, d in nums if n <= 2047 and n % 2 == 1]  # Фильтруем
+matches = re.findall(r"\b[0-7]+\b", data) 
+print("Найденные восьмеричные числа:", matches) 
+nums = [(int(m, 8), set(m)) for m in matches if len(set(m)) >= K] 
+nums = [(n, d) for n, d in nums if n <= 2047 and n % 2 == 1]  
 if nums:
     print("Числа:", [n[0] for n in nums])
     print("Количество:", len(nums))
