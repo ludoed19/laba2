@@ -1,33 +1,20 @@
-import re
-def ntw(digits):
-    words = ["ноль", "один", "два", "три", "четыре", "пять", "шесть", "семь"]
-    return " ".join(words[int(d)] for d in sorted(digits))
-K = 3 
+# Шестнадцатеричные четные числа, не превышающие 2047(10) и содержащие более 7 цифр. Вывести числа и их количество. Максимальное число вывести прописью 
+def ntw(d):
+    return ' '.join(["ноль","один","два","три","четыре","пять","шесть","семь"][int(x)] for x in sorted(d))
+K = 3
 try:
-    with open("input.txt", "r", encoding="utf-8") as f:
-        data = f.read().strip()  
-except FileNotFoundError:
-    print("Ошибка: Файл 'input.txt' не найден.")
-    input("Нажмите Enter для выхода...")
+    data = open("input.txt", encoding="utf-8").read()
+except:
+    input("Ошибка открытия файла\nEnter для выхода...")
     exit()
-allowed = []
-for i in range(1, 2048, 2):
-    o = oct(i)[2:]
-    if len(set(o)) >= K:
-        allowed.append(o)
-if not allowed:
-    print("Нет чисел, удовлетворяющих условиям (нечетные с 10+ уникальными цифрами)")
-    input("Нажмите Enter для выхода...")
-    exit()
-pattern = r'\b(?:' + '|'.join(map(re.escape, allowed)) + r')\b'
+pattern = r'\b(?:' + '|'.join(
+    oct(i)[2:] for i in range(1, 2048, 2) 
+    if len(set(oct(i)[2:])) >= K
+) + r')\b'
 matches = re.findall(pattern, data)
-print("\nНайденные восьмеричные числа в файле:", matches)  
 if matches:
-    nums = [(int(m, 8), set(m)) for m in matches]
-    print("\nРезультаты:")
-    print("Десятичные числа:", [n[0] for n in nums])
-    print("Количество:", len(nums))
-    print("Используемые цифры:", ntw(set.union(*[n[1] for n in nums])))
+    digits = set().union(*matches)
+    print(f"Найдено: {len(matches)}\nЧисла: {[int(m,8) for m in matches]}\nЦифры: {ntw(digits)}")
 else:
-    print("В файле не найдено подходящих чисел")
-input("\nНажмите Enter для выхода...")
+    print("Совпадений не найдено")
+input()
