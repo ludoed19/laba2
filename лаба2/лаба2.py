@@ -11,3 +11,16 @@ if nums:
     print(f"Найдено: {len(nums)}\nЧисла: {nums}\nМаксимум прописью: {ntw(max(nums))}")
 else: print("Совпадений не найдено")
 input()
+
+import re
+def ntw(n): return ' '.join({'0':'ноль','1':'один','2':'два','3':'три','4':'четыре','5':'пять','6':'шесть','7':'семь','8':'восемь','9':'девять'}[d] for d in str(n))
+try: data = open("input.txt", encoding="utf-8").read()
+except: input("Ошибка открытия файла\nEnter для выхода..."); exit()
+hex_even = [f"{i:X}" for i in range(0, 2048, 2) if len(f"{i:X}") > 7]  # только >7 символов и чётные
+pattern = r'\b(?:' + '|'.join(hex_even) + r')\b'
+matches = re.findall(pattern, data, re.IGNORECASE)
+nums = [int(m, 16) for m in matches]
+if nums:
+    print(f"Найдено: {len(nums)}\nЧисла: {nums}\nМаксимум прописью: {ntw(max(nums))}")
+else: print("Совпадений не найдено")
+input()
