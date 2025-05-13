@@ -19,3 +19,17 @@ if matches:
 else:
     print("Совпадений не найдено")
 input()
+def ntw(n): return ' '.join({'0':'ноль','1':'один','2':'два','3':'три','4':'четыре','5':'пять','6':'шесть','7':'семь','8':'восемь','9':'девять'}[c] for c in str(n))
+try: data = open("input.txt", encoding="utf-8").read()
+except: input("Ошибка открытия файла\nEnter для выхода..."); exit()
+nums = []
+for tok in data.split():
+    if len(tok) > 7 and all(c in '0123456789abcdefABCDEF' for c in tok):
+        try:
+            dec = int(tok, 16)
+            if dec <= 2047 and dec % 2 == 0: nums.append(dec)
+        except: pass
+if nums:
+    print(f"Найдено: {len(nums)}\nЧисла: {nums}\nМаксимум прописью: {ntw(max(nums))}")
+else: print("Совпадений не найдено")
+input()
